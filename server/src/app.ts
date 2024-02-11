@@ -9,7 +9,7 @@ import {
   getUserByEmail,
   getUserByID,
   getSharedTodoByID,
-} from './database.js';
+} from './database';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
@@ -42,7 +42,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use(ckeckApiKey);
+// app.use(ckeckApiKey);
 
 app.get('/todos/:id', async (req, res) => {
   const todos = await getTodosByID(Number(req.params.id));
