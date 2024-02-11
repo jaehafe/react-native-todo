@@ -11,7 +11,7 @@ const pool = mysql
   })
   .promise();
 
-export async function getTodosByID(id: string) {
+export async function getTodosByID(id: number) {
   const [rows] = await pool.query(
     `
       SELECT todos.*, shared_todos.shared_with_id
