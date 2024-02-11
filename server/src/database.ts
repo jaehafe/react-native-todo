@@ -11,6 +11,19 @@ const pool = mysql
   })
   .promise();
 
+export async function getTodosByID(id: string) {
+  const [rows] = await pool.query(
+    `
+      SELECT todos.*, shared_todos.shared_with_id
+      FROM todos
+      LEFT JOIN shared_todos ON todos.id = shared_todos.todo_id
+      WHERE todos.user_id = ? OR shared_todos.shared_with_id = ?
+    `,
+    [id, id]
+  );
+  return rows;
+}
+
 export async function getTodoById(id: number) {
   const [row] = await pool.query(`SELECT * FROM todos WHERE id = ?`, [id]);
 
@@ -28,4 +41,12 @@ export async function shareTodo(todo_id: string, user_id: string, shared_with_id
   return result.insertId;
 }
 
-getTodoById(1);
+export async function getSharedTodoByID(id: string) {
+  const [rows] = await pool.query(`SELECT * FROM shared_todos WHERE todo_id = ?`, [id]);
+  return rows[0];
+}
+
+export async function getUserByID(id: string) {
+  const [rows] = await pool.query(`SELECT * FROM users WHERE id = ?`, [id]);
+  return rows[0];
+}
