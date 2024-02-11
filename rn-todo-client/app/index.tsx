@@ -5,8 +5,9 @@ import axios from 'axios';
 import Task from '@/components/Task';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import InputTask from '@/components/InputTask';
 
-interface TodosType {
+export interface TodosType {
   id: string;
   title: string;
   completed: 0 | 1;
@@ -36,20 +37,17 @@ export default function index() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
-        <View style={styles.container}>
-          <SafeAreaView>
-            <FlatList
-              data={todos}
-              keyExtractor={(todo) => String(todo.id)}
-              renderItem={({ item }) => {
-                return <Task {...item} clearTodo={clearTodo} toggleTodo={toggleTodo} />;
-              }}
-              ListHeaderComponent={() => <Text style={styles.title}>Today</Text>}
-              contentContainerStyle={styles.contentContainerStyle}
-            />
-          </SafeAreaView>
-          <StatusBar style="auto" />
-        </View>
+        <StatusBar />
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            data={todos}
+            contentContainerStyle={styles.contentContainerStyle}
+            keyExtractor={(todo) => todo.id}
+            renderItem={({ item }) => <Task {...item} toggleTodo={toggleTodo} clearTodo={clearTodo} />}
+            ListHeaderComponent={() => <Text style={styles.title}>Todos</Text>}
+          />
+          <InputTask todos={todos} setTodos={setTodos} />
+        </SafeAreaView>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
