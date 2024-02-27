@@ -115,13 +115,6 @@ export default function InputTask({ todos, setTodos }: InputTaskProps) {
               style={{ paddingLeft: 5 }}
             />
           </Pressable>
-          {/* <MaterialCommunityIcons
-            name="arrow-up-circle"
-            size={40}
-            color={messageBody ? "black" : "#00000050"}
-            style={{ paddingLeft: 5 }}
-            onPress={handleSubmit}
-          /> */}
         </View>
       </View>
     </KeyboardAvoidingView>

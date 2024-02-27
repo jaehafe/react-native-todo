@@ -38,8 +38,6 @@ export default function Task({ id, title, shared_with_id, completed, clearTodo, 
     console.log(data.status);
   };
 
-  console.log('shared_with_id>>', shared_with_id);
-
   return (
     <TouchableOpacity
       onLongPress={() => setIsDeleteActive(true)}
